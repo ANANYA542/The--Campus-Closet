@@ -30,13 +30,11 @@ function Login() {
   };
 
   return (
-    <div style={{ maxWidth: 420, margin: "40px auto" }}>
+    <div className="auth">
       <h2>Login</h2>
-      {error ? (
-        <div style={{ color: "#b00020", marginBottom: 12 }}>{error}</div>
-      ) : null}
+      {error ? <div className="auth__error">{error}</div> : null}
       <form onSubmit={onSubmit}>
-        <div style={{ marginBottom: 12 }}>
+        <div className="field">
           <label htmlFor="email">Email</label>
           <input
             id="email"
@@ -45,10 +43,10 @@ function Login() {
             value={form.email}
             onChange={onChange}
             required
-            style={{ display: "block", width: "100%", padding: 8 }}
+            className="input"
           />
         </div>
-        <div style={{ marginBottom: 16 }}>
+        <div className="field">
           <label htmlFor="password">Password</label>
           <input
             id="password"
@@ -57,15 +55,17 @@ function Login() {
             value={form.password}
             onChange={onChange}
             required
-            style={{ display: "block", width: "100%", padding: 8 }}
+            className="input"
           />
         </div>
-        <button type="submit" disabled={submitting}>
-          {submitting ? "Logging in..." : "Login"}
-        </button>
+        <div className="auth__actions">
+          <button type="submit" className="btn btn--primary" disabled={submitting}>
+            {submitting ? "Logging in..." : "Login"}
+          </button>
+        </div>
       </form>
-      <p style={{ marginTop: 12 }}>
-        Dont have an account? <Link to="/signup">Sign up</Link>
+      <p className="muted" style={{ marginTop: 12 }}>
+        Don't have an account? <Link to="/signup">Sign up</Link>
       </p>
     </div>
   );
