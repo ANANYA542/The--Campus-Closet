@@ -1,20 +1,23 @@
-const express = require("express");
-const app = express();
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import authRoutes from "./routes/authRoutes.js";
+import sellerRoutes from "./routes/seller.routes.js";
+import buyerRoutes from "./routes/buyer.routes.js";
+import interactionRoutes from "./routes/interaction.routes.js";
 
-const sellerRoutes = require("./routes/seller.routes");
-const buyerRoutes = require("./routes/buyer.routes");
-const interactionRoutes = require("./routes/interaction.routes");
+dotenv.config();
 
-
+const app=express();
 
 app.use(cors());
 app.use(express.json());
 
+// Routes
+app.use("/api/auth", authRoutes);
 app.use("/api/seller", sellerRoutes);
 app.use("/api/buyer", buyerRoutes);
 app.use("/api/interaction", interactionRoutes);
-
 
 app.get("/", (req, res) => res.send("Campus Closet Backend Running "));
 
