@@ -38,16 +38,12 @@ function Signup() {
   };
 
   return (
-    <div style={{ maxWidth: 480, margin: "40px auto" }}>
+    <div className="auth">
       <h2>Sign up</h2>
-      {error ? (
-        <div style={{ color: "#b00020", marginBottom: 12 }}>{error}</div>
-      ) : null}
-      {success ? (
-        <div style={{ color: "#0a7c2f", marginBottom: 12 }}>{success}</div>
-      ) : null}
+      {error ? <div className="auth__error">{error}</div> : null}
+      {success ? <div className="auth__success">{success}</div> : null}
       <form onSubmit={onSubmit}>
-        <div style={{ marginBottom: 12 }}>
+        <div className="field">
           <label htmlFor="name">Name</label>
           <input
             id="name"
@@ -56,10 +52,10 @@ function Signup() {
             value={form.name}
             onChange={onChange}
             required
-            style={{ display: "block", width: "100%", padding: 8 }}
+            className="input"
           />
         </div>
-        <div style={{ marginBottom: 12 }}>
+        <div className="field">
           <label htmlFor="email">Email</label>
           <input
             id="email"
@@ -68,10 +64,10 @@ function Signup() {
             value={form.email}
             onChange={onChange}
             required
-            style={{ display: "block", width: "100%", padding: 8 }}
+            className="input"
           />
         </div>
-        <div style={{ marginBottom: 12 }}>
+        <div className="field">
           <label htmlFor="password">Password</label>
           <input
             id="password"
@@ -80,27 +76,29 @@ function Signup() {
             value={form.password}
             onChange={onChange}
             required
-            style={{ display: "block", width: "100%", padding: 8 }}
+            className="input"
           />
         </div>
-        <div style={{ marginBottom: 16 }}>
+        <div className="field">
           <label htmlFor="role">Role</label>
           <select
             id="role"
             name="role"
             value={form.role}
             onChange={onChange}
-            style={{ display: "block", width: "100%", padding: 8 }}
+            className="select"
           >
             <option value="buyer">Buyer</option>
             <option value="seller">Seller</option>
           </select>
         </div>
-        <button type="submit" disabled={submitting}>
-          {submitting ? "Creating..." : "Create account"}
-        </button>
+        <div className="auth__actions">
+          <button type="submit" className="btn btn--primary" disabled={submitting}>
+            {submitting ? "Creating..." : "Create account"}
+          </button>
+        </div>
       </form>
-      <p style={{ marginTop: 12 }}>
+      <p className="muted" style={{ marginTop: 12 }}>
         Already have an account? <Link to="/login">Login</Link>
       </p>
     </div>
