@@ -53,7 +53,7 @@ Users can list items to sell or rent with details such as:
 
 ---
 
-## ✨ Additional (Fun) Features
+##  Additional (Fun) Features
 
 ### 5. Campus Verification
 - Only verified college students can sign up using a valid **college email ID** (e.g., `@university.edu`)  
@@ -80,20 +80,20 @@ Users can list items to sell or rent with details such as:
 - Students can post items they’re giving away for free  
 - Promotes sustainability and recycling on campus  
 
-### 11. 🎯 Points / Reputation System
+### 11. Points / Reputation System
 - Users earn **trust points** for:
   - Successful deals  
   - Positive reviews  
   - On-time rental returns  
 - High-trust users get highlighted on the platform  
 
-### 12. 📦 Wishlist / Favorites
+### 12.  Wishlist / Favorites
 - Save items to wishlist for future reference  
 - View and manage saved items easily  
 
 ---
 
-## 🧱 Database Overview
+##  Database Overview
 
 ### Key Tables
 | Table | Description |
@@ -108,7 +108,7 @@ Users can list items to sell or rent with details such as:
 
 ---
 
-## ⚙️ Project Progress (Milestone Plan)
+##  Project Progress (Milestone Plan)
 
 | Stage | Features | Status |
 |--------|-----------|--------|
@@ -119,7 +119,7 @@ Users can list items to sell or rent with details such as:
 
 ---
 
-## 📚 API Endpoints (Preview)
+## API Endpoints (Preview)
 | Method | Endpoint | Description |
 |--------|-----------|-------------|
 | `POST /api/auth/register` | Register new user |
@@ -134,15 +134,11 @@ Users can list items to sell or rent with details such as:
 
 ---
 
-## 🧠 Future Improvements
+##  Future Improvements
 - Payment gateway integration (Stripe / Razorpay)
 - AI-based item recommendation system
 - Delivery partner integration for physical goods
 - Admin dashboard for moderation
 
 
-## 🧾 License
-This project is released under the **MIT License** — free for educational and open-source use.
-
----
 
