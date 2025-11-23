@@ -22,8 +22,9 @@ model User {
   avatarUrl        String?
   reputationScore  Int              @default(0)
   createdAt        DateTime         @default(now())
+  verifyToken      String?
+  emailVerified    Boolean          @default(false)
 
-  // Relations
   address          Address?
   items            Item[]           @relation("UserItems")
   boughtItems      Transaction[]    @relation("BuyerTransactions")
@@ -35,6 +36,7 @@ model User {
   receivedMessages ChatMessage[]    @relation("ReceivedMessages")
   notifications    Notification[]
 }
+
 
 model Address {
   id             Int    @id @default(autoincrement())
