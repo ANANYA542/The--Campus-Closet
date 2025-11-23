@@ -1,7 +1,5 @@
-const express = require("express");
-const router = express.Router();
-
-const {
+import express from "express";
+import {
   getAllItems,
   addToWishlist,
   removeFromWishlist,
@@ -10,8 +8,10 @@ const {
   getBuyerOrders,
   getBuyerRentals,
   addReview,
-  getNotifications,
-} = require("../controllers/buyer.controller");
+  getNotifications
+} from "../controllers/buyer.controller.js";
+
+const router = express.Router();
 
 router.get("/items", getAllItems);
 router.post("/wishlist", addToWishlist);
@@ -23,4 +23,4 @@ router.get("/rentals/:renterId", getBuyerRentals);
 router.post("/review", addReview);
 router.get("/notifications/:userId", getNotifications);
 
-module.exports = router;
+export default router;

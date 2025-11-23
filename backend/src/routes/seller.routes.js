@@ -1,7 +1,5 @@
-const express = require("express");
-const router = express.Router();
-
-const {
+import express from "express";
+import {
   addItem,
   getSellerItems,
   updateItem,
@@ -10,8 +8,10 @@ const {
   getSellerTransactions,
   getSellerRentals,
   approveRental,
-  endRental,
-} = require("../controllers/seller.controller");
+  endRental
+} from "../controllers/seller.controller.js";
+
+const router = express.Router();
 
 router.post("/item", addItem);
 router.get("/items/:sellerId", getSellerItems);
@@ -23,4 +23,4 @@ router.get("/rentals/:sellerId", getSellerRentals);
 router.patch("/rental/approve/:rentalId", approveRental);
 router.patch("/rental/end/:rentalId", endRental);
 
-module.exports = router;
+export default router;

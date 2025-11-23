@@ -1,7 +1,7 @@
-const prisma = require("../config/db");
-const { createNotification } = require("../services/notification.services");
+import prisma from "../config/db.js";
+import { createNotification } from "../services/notification.services.js";
 
-const createBuyRequest = async (req, res) => {
+export const createBuyRequest = async (req, res) => {
   try {
     const { buyerId, itemId } = req.body;
 
@@ -34,7 +34,7 @@ const createBuyRequest = async (req, res) => {
   }
 };
 
-const createRentRequest = async (req, res) => {
+export const createRentRequest = async (req, res) => {
   try {
     const { renterId, itemId, startDate, endDate } = req.body;
 
@@ -50,6 +50,7 @@ const createRentRequest = async (req, res) => {
     const totalDays = Math.ceil(
       (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)
     );
+
     const totalRent = (item.rentPrice || 0) * totalDays;
     const deposit = item.price * 0.2;
 
@@ -79,10 +80,10 @@ const createRentRequest = async (req, res) => {
   }
 };
 
-const respondToRequest = async (req, res) => {
+export const respondToRequest = async (req, res) => {
   try {
-    const { type } = req.query; // "transaction" or "rental"
-    const { action } = req.body; // "accept" or "decline"
+    const { type } = req.query;
+    const { action } = req.body;
     const id = parseInt(req.params.id);
 
     if (!["transaction", "rental"].includes(type)) {
@@ -92,10 +93,15 @@ const respondToRequest = async (req, res) => {
       return res.status(400).json({ error: "Invalid action" });
     }
 
+    // ------------------------------------
+    // TRANSACTION ACCEPT / DECLINE
+    // ------------------------------------
     if (type === "transaction") {
       const trx = await prisma.transaction.findUnique({ where: { id } });
+
       if (!trx) return res.status(404).json({ error: "Transaction not found" });
-      if (trx.status !== "pending") return res.status(400).json({ error: "Transaction not pending" });
+      if (trx.status !== "pending")
+        return res.status(400).json({ error: "Transaction not pending" });
 
       if (action === "accept") {
         const result = await prisma.$transaction(async (tx) => {
@@ -129,79 +135,86 @@ const respondToRequest = async (req, res) => {
         });
 
         return res.json(result);
-      } else {
-        const updatedTrx = await prisma.transaction.update({
-          where: { id },
-          data: { status: "cancelled" },
-        });
-
-        await createNotification(
-          trx.buyerId,
-          `Your purchase request for item ${trx.itemId} was declined.`,
-          "purchase_declined"
-        );
-
-        return res.json(updatedTrx);
       }
-    } else {
-      const rental = await prisma.rental.findUnique({ where: { id } });
-      if (!rental) return res.status(404).json({ error: "Rental not found" });
-      if (rental.status !== "pending") return res.status(400).json({ error: "Rental not pending" });
 
-      if (action === "accept") {
-        const result = await prisma.$transaction(async (tx) => {
-          const updatedRental = await tx.rental.update({
-            where: { id },
-            data: { status: "active" },
-            include: { renter: true, item: true },
-          });
+      // DECLINE TRANSACTION
+      const updatedTrx = await prisma.transaction.update({
+        where: { id },
+        data: { status: "cancelled" },
+      });
 
-          await tx.item.update({
-            where: { id: updatedRental.itemId },
-            data: { status: "rented" },
-          });
+      await createNotification(
+        trx.buyerId,
+        `Your purchase request for item ${trx.itemId} was declined.`,
+        "purchase_declined"
+      );
 
-          await tx.notification.createMany({
-            data: [
-              {
-                userId: updatedRental.renterId,
-                message: `Your rental for "${updatedRental.item.name}" was approved.`,
-                type: "rental_approved",
-              },
-              {
-                userId: updatedRental.item.ownerId,
-                message: `You approved rental for "${updatedRental.item.name}".`,
-                type: "rental_confirmed",
-              },
-            ],
-          });
-
-          return updatedRental;
-        });
-
-        return res.json(result);
-      } else {
-        const updatedRental = await prisma.rental.update({
-          where: { id },
-          data: { status: "cancelled" },
-        });
-
-        await createNotification(
-          rental.renterId,
-          `Your rental request for item ${rental.itemId} was declined.`,
-          "rental_declined"
-        );
-
-        return res.json(updatedRental);
-      }
+      return res.json(updatedTrx);
     }
+
+    // ------------------------------------
+    // RENTAL ACCEPT / DECLINE
+    // ------------------------------------
+    const rental = await prisma.rental.findUnique({ where: { id } });
+
+    if (!rental) return res.status(404).json({ error: "Rental not found" });
+    if (rental.status !== "pending")
+      return res.status(400).json({ error: "Rental not pending" });
+
+    if (action === "accept") {
+      const result = await prisma.$transaction(async (tx) => {
+        const updatedRental = await tx.rental.update({
+          where: { id },
+          data: { status: "active" },
+          include: { renter: true, item: true },
+        });
+
+        await tx.item.update({
+          where: { id: updatedRental.itemId },
+          data: { status: "rented" },
+        });
+
+        await tx.notification.createMany({
+          data: [
+            {
+              userId: updatedRental.renterId,
+              message: `Your rental for "${updatedRental.item.name}" was approved.`,
+              type: "rental_approved",
+            },
+            {
+              userId: updatedRental.item.ownerId,
+              message: `You approved rental for "${updatedRental.item.name}".`,
+              type: "rental_confirmed",
+            },
+          ],
+        });
+
+        return updatedRental;
+      });
+
+      return res.json(result);
+    }
+
+    // DECLINE RENTAL
+    const updatedRental = await prisma.rental.update({
+      where: { id },
+      data: { status: "cancelled" },
+    });
+
+    await createNotification(
+      rental.renterId,
+      `Your rental request for item ${rental.itemId} was declined.`,
+      "rental_declined"
+    );
+
+    return res.json(updatedRental);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to respond to request" });
   }
 };
 
-const getPendingRequestsForSeller = async (req, res) => {
+export const getPendingRequestsForSeller = async (req, res) => {
   try {
     const sellerId = parseInt(req.params.sellerId);
 
@@ -224,7 +237,7 @@ const getPendingRequestsForSeller = async (req, res) => {
   }
 };
 
-const getRequestsForUser = async (req, res) => {
+export const getRequestsForUser = async (req, res) => {
   try {
     const userId = parseInt(req.params.userId);
 
@@ -245,12 +258,4 @@ const getRequestsForUser = async (req, res) => {
     console.error(err);
     res.status(500).json({ error: "Failed to fetch user requests" });
   }
-};
-
-module.exports = {
-  createBuyRequest,
-  createRentRequest,
-  respondToRequest,
-  getPendingRequestsForSeller,
-  getRequestsForUser,
 };

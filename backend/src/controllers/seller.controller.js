@@ -1,8 +1,10 @@
-const prisma = require("../config/db");
+import prisma from "../config/db.js";
 
-const addItem = async (req, res) => {
+export const addItem = async (req, res) => {
   try {
-    const { sellerId, name, description, category, price, rentPrice, condition, isForRent, images } = req.body;
+    const { sellerId, name, description, category, price, rentPrice, condition, isForRent, images } =
+      req.body;
+
     const newItem = await prisma.item.create({
       data: {
         name,
@@ -16,13 +18,14 @@ const addItem = async (req, res) => {
         owner: { connect: { id: sellerId } },
       },
     });
+
     res.status(201).json({ success: true, item: newItem });
   } catch (error) {
     res.status(500).json({ error: "Failed to add item" });
   }
 };
 
-const getSellerItems = async (req, res) => {
+export const getSellerItems = async (req, res) => {
   try {
     const sellerId = parseInt(req.params.sellerId);
     const items = await prisma.item.findMany({
@@ -36,7 +39,7 @@ const getSellerItems = async (req, res) => {
   }
 };
 
-const updateItem = async (req, res) => {
+export const updateItem = async (req, res) => {
   try {
     const id = parseInt(req.params.id);
     const updatedItem = await prisma.item.update({
@@ -49,7 +52,7 @@ const updateItem = async (req, res) => {
   }
 };
 
-const deleteItem = async (req, res) => {
+export const deleteItem = async (req, res) => {
   try {
     const id = parseInt(req.params.id);
     await prisma.item.delete({ where: { id } });
@@ -59,9 +62,10 @@ const deleteItem = async (req, res) => {
   }
 };
 
-const getSellerStats = async (req, res) => {
+export const getSellerStats = async (req, res) => {
   try {
     const sellerId = parseInt(req.params.sellerId);
+
     const [totalItems, totalSales, totalRentals, revenue] = await Promise.all([
       prisma.item.count({ where: { ownerId: sellerId } }),
       prisma.transaction.count({ where: { sellerId } }),
@@ -71,6 +75,7 @@ const getSellerStats = async (req, res) => {
         _sum: { amount: true },
       }),
     ]);
+
     res.json({
       totalItems,
       totalSales,
@@ -82,7 +87,7 @@ const getSellerStats = async (req, res) => {
   }
 };
 
-const getSellerTransactions = async (req, res) => {
+export const getSellerTransactions = async (req, res) => {
   try {
     const sellerId = parseInt(req.params.sellerId);
     const transactions = await prisma.transaction.findMany({
@@ -96,7 +101,7 @@ const getSellerTransactions = async (req, res) => {
   }
 };
 
-const getSellerRentals = async (req, res) => {
+export const getSellerRentals = async (req, res) => {
   try {
     const sellerId = parseInt(req.params.sellerId);
     const rentals = await prisma.rental.findMany({
@@ -110,50 +115,44 @@ const getSellerRentals = async (req, res) => {
   }
 };
 
-const approveRental = async (req, res) => {
+export const approveRental = async (req, res) => {
   try {
     const rentalId = parseInt(req.params.rentalId);
+
     const rental = await prisma.rental.update({
       where: { id: rentalId },
       data: { status: "active" },
       include: { item: true, renter: true },
     });
+
     await prisma.item.update({
       where: { id: rental.itemId },
       data: { status: "rented" },
     });
+
     res.json({ success: true, rental });
   } catch (error) {
     res.status(500).json({ error: "Failed to approve rental" });
   }
 };
 
-const endRental = async (req, res) => {
+export const endRental = async (req, res) => {
   try {
     const rentalId = parseInt(req.params.rentalId);
+
     const rental = await prisma.rental.update({
       where: { id: rentalId },
       data: { status: "returned" },
       include: { item: true },
     });
+
     await prisma.item.update({
       where: { id: rental.itemId },
       data: { status: "available" },
     });
+
     res.json({ success: true, message: "Rental ended successfully", rental });
   } catch (error) {
     res.status(500).json({ error: "Failed to end rental" });
   }
-};
-
-module.exports = {
-  addItem,
-  getSellerItems,
-  updateItem,
-  deleteItem,
-  getSellerStats,
-  getSellerTransactions,
-  getSellerRentals,
-  approveRental,
-  endRental,
 };

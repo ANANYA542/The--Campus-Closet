@@ -1,7 +1,7 @@
-const prisma = require("../config/db");
+import prisma from "../config/db.js";
 
-async function createNotification(userId, message, type = "info") {
-  return prisma.notification.create({
+export async function createNotification(userId, message, type = "info") {
+  return await prisma.notification.create({
     data: {
       userId,
       message,
@@ -9,5 +9,3 @@ async function createNotification(userId, message, type = "info") {
     },
   });
 }
-
-module.exports = { createNotification };

@@ -5,25 +5,29 @@ import { AuthContext } from "../context/AuthContext.jsx";
 function Login() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
-  const [form, setForm] = useState({ email: "", password: "" });
+
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
   const onChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSubmitting(true);
+
     try {
       await login(form);
       navigate("/");
     } catch (err) {
-      const message = err?.response?.data?.message || "Login failed";
-      setError(message);
+      const msg = err?.response?.data?.message || "Login failed";
+      setError(msg);
     } finally {
       setSubmitting(false);
     }
@@ -32,45 +36,52 @@ function Login() {
   return (
     <div className="auth">
       <h2>Login</h2>
-      {error ? <div className="auth__error">{error}</div> : null}
+
+      {error && <div className="auth__error">{error}</div>}
+
       <form onSubmit={onSubmit}>
         <div className="field">
-          <label htmlFor="email">Email</label>
+          <label>Email</label>
           <input
-            id="email"
             name="email"
             type="email"
+            className="input"
             value={form.email}
             onChange={onChange}
             required
-            className="input"
           />
         </div>
+
         <div className="field">
-          <label htmlFor="password">Password</label>
+          <label>Password</label>
           <input
-            id="password"
             name="password"
             type="password"
+            className="input"
             value={form.password}
             onChange={onChange}
             required
-            className="input"
           />
         </div>
+
+        <div style={{ textAlign: "right", marginTop: "-8px" }}>
+          <Link to="/forgot-password" className="muted">
+            Forgot password?
+          </Link>
+        </div>
+
         <div className="auth__actions">
-          <button type="submit" className="btn btn--primary" disabled={submitting}>
+          <button className="btn btn--primary" disabled={submitting}>
             {submitting ? "Logging in..." : "Login"}
           </button>
         </div>
       </form>
+
       <p className="muted" style={{ marginTop: 12 }}>
-        Don't have an account? <Link to="/signup">Sign up</Link>
+        Don’t have an account? <Link to="/signup">Sign up</Link>
       </p>
     </div>
   );
 }
 
 export default Login;
-
-
