@@ -7,6 +7,7 @@ import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
+import Profile from './pages/Profile.jsx'
 
 function App() {
   return (
@@ -15,10 +16,12 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
 
         {/* Auth */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+
 
         {/* Password Reset */}
         <Route path="/forgot-password" element={<ForgotPassword />} />

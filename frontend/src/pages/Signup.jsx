@@ -27,10 +27,10 @@ function Signup() {
     setSubmitting(true);
     try {
       await signup(form);
-      setSuccess("Account created. Please login.");
-      setTimeout(() => navigate("/login"), 600);
+      setSuccess("Account created successfully! Redirecting to login...");
+      setTimeout(() => navigate("/login"), 1500);
     } catch (err) {
-      const message = err?.response?.data?.message || "Signup failed";
+      const message = err?.response?.data?.message || "Signup failed. Please try again.";
       setError(message);
     } finally {
       setSubmitting(false);
@@ -39,48 +39,62 @@ function Signup() {
 
   return (
     <div className="auth">
-      <h2>Sign up</h2>
-      {error ? <div className="auth__error">{error}</div> : null}
-      {success ? <div className="auth__success">{success}</div> : null}
+      <div className="info-section">
+        <h2>Create Account</h2>
+        <p className="muted" style={{ marginTop: '0.5rem' }}>
+          Join your campus marketplace today
+        </p>
+      </div>
+
+      {error && <div className="auth__error">{error}</div>}
+      {success && <div className="auth__success">{success}</div>}
+
       <form onSubmit={onSubmit}>
         <div className="field">
-          <label htmlFor="name">Name</label>
+          <label htmlFor="name">Full Name</label>
           <input
             id="name"
             name="name"
             type="text"
+            placeholder="John Doe"
             value={form.name}
             onChange={onChange}
             required
             className="input"
           />
         </div>
+
         <div className="field">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Email Address</label>
           <input
             id="email"
             name="email"
             type="email"
+            placeholder="your.email@university.edu"
             value={form.email}
             onChange={onChange}
             required
             className="input"
           />
         </div>
+
         <div className="field">
           <label htmlFor="password">Password</label>
           <input
             id="password"
             name="password"
             type="password"
+            placeholder="At least 6 characters"
             value={form.password}
             onChange={onChange}
             required
+            minLength={6}
             className="input"
           />
         </div>
+
         <div className="field">
-          <label htmlFor="role">Role</label>
+          <label htmlFor="role">I want to</label>
           <select
             id="role"
             name="role"
@@ -88,23 +102,27 @@ function Signup() {
             onChange={onChange}
             className="select"
           >
-            <option value="buyer">Buyer</option>
-            <option value="seller">Seller</option>
+            <option value="buyer">Buy items</option>
+            <option value="seller">Sell items</option>
           </select>
         </div>
+
         <div className="auth__actions">
-          <button type="submit" className="btn btn--primary" disabled={submitting}>
-            {submitting ? "Creating..." : "Create account"}
+          <button 
+            type="submit" 
+            className="btn btn--primary" 
+            disabled={submitting}
+          >
+            {submitting ? "Creating account..." : "Create Account"}
           </button>
         </div>
       </form>
-      <p className="muted" style={{ marginTop: 12 }}>
-        Already have an account? <Link to="/login">Login</Link>
+
+      <p className="muted text-center" style={{ marginTop: '1.5rem' }}>
+        Already have an account? <Link to="/login">Log in</Link>
       </p>
     </div>
   );
 }
 
 export default Signup;
-
-
