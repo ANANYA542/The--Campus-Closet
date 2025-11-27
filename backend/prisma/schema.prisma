@@ -30,7 +30,7 @@ model User {
   boughtItems      Transaction[]    @relation("BuyerTransactions")
   soldItems        Transaction[]    @relation("SellerTransactions")
   rentals          Rental[]         @relation("UserRentals")
-  wishlist         Wishlist[]
+  cartItems      CartItem[]
   reviews          Review[]
   sentMessages     ChatMessage[]    @relation("SentMessages")
   receivedMessages ChatMessage[]    @relation("ReceivedMessages")
@@ -66,7 +66,7 @@ model Item {
   ownerId        Int
   transactions   Transaction[]
   rentals        Rental[]
-  wishlistItems  Wishlist[]
+  cartItems      CartItem[]
   reviews        Review[]
 }
 
@@ -98,13 +98,17 @@ model Rental {
   createdAt     DateTime  @default(now())
 }
 
-model Wishlist {
-  id            Int       @id @default(autoincrement())
-  user          User      @relation(fields: [userId], references: [id])
-  userId        Int
-  item          Item      @relation(fields: [itemId], references: [id])
-  itemId        Int
-  createdAt     DateTime  @default(now())
+model CartItem {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  itemId    Int
+  quantity  Int      @default(1)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  item Item @relation(fields: [itemId], references: [id])
+
+  @@unique([userId, itemId])
 }
 
 model Review {
