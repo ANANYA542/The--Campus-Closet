@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 enum UserRole {
   BUYER
@@ -176,4 +177,10 @@ model Wishlist {
   item Item @relation(fields: [itemId], references: [id])
 
   @@unique([userId, itemId])
+}
+model Category {
+  id        Int     @id @default(autoincrement())
+  name      String
+  items     Item[]
+  createdAt DateTime @default(now())
 }
