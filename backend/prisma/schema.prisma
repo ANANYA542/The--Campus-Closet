@@ -33,9 +33,10 @@ model User {
   cartItems        CartItem[]
   reviews          Review[]
   wishlistItems    Wishlist[]
-  sentMessages     ChatMessage[]    @relation("SentMessages")
-  receivedMessages ChatMessage[]    @relation("ReceivedMessages")
   notifications    Notification[]
+  buyerConversations Conversation[] @relation("BuyerConversations")
+  sellerConversations Conversation[] @relation("SellerConversations")
+  sentMessages     Message[]        @relation("MessageSender")
 }
 
 
@@ -72,6 +73,7 @@ model Item {
   cartItems      CartItem[]
   reviews        Review[]
   wishlistedBy   Wishlist[]
+  conversations  Conversation[]
 }
 
 model Transaction {
@@ -136,14 +138,30 @@ model Notification {
   createdAt     DateTime  @default(now())
 }
 
-model ChatMessage {
-  id            Int       @id @default(autoincrement())
-  sender        User      @relation("SentMessages", fields: [senderId], references: [id])
-  senderId      Int
-  receiver      User      @relation("ReceivedMessages", fields: [receiverId], references: [id])
-  receiverId    Int
-  content       String
-  createdAt     DateTime  @default(now())
+model Conversation {
+  id         Int       @id @default(autoincrement())
+  buyer      User      @relation("BuyerConversations", fields: [buyerId], references: [id])
+  buyerId    Int
+  seller     User      @relation("SellerConversations", fields: [sellerId], references: [id])
+  sellerId   Int
+  item       Item?     @relation(fields: [itemId], references: [id])
+  itemId     Int?
+  messages   Message[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@unique([buyerId, sellerId, itemId])
+}
+
+model Message {
+  id             Int          @id @default(autoincrement())
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  conversationId Int
+  sender         User         @relation("MessageSender", fields: [senderId], references: [id])
+  senderId       Int
+  content        String
+  isRead         Boolean      @default(false)
+  createdAt      DateTime     @default(now())
 }
 
 model Wishlist {

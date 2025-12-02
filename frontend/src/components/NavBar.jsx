@@ -36,6 +36,9 @@ function NavBar() {
               <Link to="/products" className="btn btn--ghost">
                 Listings
               </Link>
+              <Link to="/chat" className="btn btn--ghost">
+                Chats
+              </Link>
               <Link to="/new-arrivals" className="btn btn--ghost">
                 New Arrivals
               </Link>

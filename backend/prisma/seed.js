@@ -14,6 +14,8 @@ async function main() {
   await prisma.rental.deleteMany();
   await prisma.transaction.deleteMany();
   await prisma.item.deleteMany();
+  await prisma.message.deleteMany();
+  await prisma.conversation.deleteMany();
   await prisma.address.deleteMany();
   await prisma.user.deleteMany();
 
@@ -450,6 +452,54 @@ async function main() {
   ]);
 
   console.log(`Created ${transactions.length} transactions`);
+
+  console.log("Creating chat conversations...");
+  const conversation = await prisma.conversation.create({
+    data: {
+      buyerId: users[0].id, // Alex
+      sellerId: users[1].id, // Sarah
+      itemId: items[9].id,   // Ergonomic Desk Chair
+    },
+  });
+
+  await prisma.message.createMany({
+    data: [
+      { conversationId: conversation.id, senderId: users[0].id, content: "Hi! Is this armchair still available? I saw it on Campus Closet." },
+      { conversationId: conversation.id, senderId: users[1].id, content: "Hey! Yes, it's in great condition, just a minor scuff on one leg." },
+      { conversationId: conversation.id, senderId: users[0].id, content: "That's fine by me! Could I pick it up tomorrow evening?" },
+      { conversationId: conversation.id, senderId: users[1].id, content: "Of course. Does 7 PM work for you?" },
+    ],
+  });
+
+  const conversation2 = await prisma.conversation.create({
+    data: {
+      buyerId: users[0].id,
+      sellerId: users[2].id, // Mike
+      itemId: items[6].id,
+    },
+  });
+  await prisma.message.createMany({
+    data: [
+      { conversationId: conversation2.id, senderId: users[0].id, content: "Is the hoodie still available?" },
+      { conversationId: conversation2.id, senderId: users[2].id, content: "Yes, available. Tan color, size M." },
+      { conversationId: conversation2.id, senderId: users[0].id, content: "Great, I'll take it!" },
+    ],
+  });
+
+  const conversation3 = await prisma.conversation.create({
+    data: {
+      buyerId: users[1].id,
+      sellerId: users[3].id, // Priya
+      itemId: items[10].id,
+    },
+  });
+  await prisma.message.createMany({
+    data: [
+      { conversationId: conversation3.id, senderId: users[1].id, content: "Does the lamp have warm white light?" },
+      { conversationId: conversation3.id, senderId: users[3].id, content: "Yes, adjustable brightness and warm white." },
+      { conversationId: conversation3.id, senderId: users[3].id, content: "I can meet you on campus." },
+    ],
+  });
 
   console.log("✅ Database seeding completed successfully!");
 }

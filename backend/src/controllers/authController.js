@@ -13,26 +13,59 @@ export const signup = async (req, res) => {
   const { name, email, password, role } = req.body;
 
   try {
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "Name, email and password are required" });
+    }
+    if (password.length < 6) {
+      return res.status(400).json({ message: "Password must be at least 6 characters" });
+    }
+
     const existing = await prisma.user.findUnique({ where: { email } });
-    if (existing)
+    if (existing) {
       return res.status(400).json({ message: "User already exists" });
+    }
 
     const hashed = await bcrypt.hash(password, 10);
+
+    const normalizeRole = (r) => {
+      const val = (r || "BOTH").toString().toUpperCase();
+      return ["BUYER", "SELLER", "BOTH"].includes(val) ? val : "BOTH";
+    };
+
+    // ensure urnId uniqueness in rare collision case
+    let urnId;
+    for (let i = 0; i < 5; i++) {
+      const candidate = "URN" + Math.floor(10000000 + Math.random() * 90000000);
+      const taken = await prisma.user.findUnique({ where: { urnId: candidate } });
+      if (!taken) { urnId = candidate; break; }
+    }
+    if (!urnId) {
+      urnId = "URN" + Date.now();
+    }
 
     const newUser = await prisma.user.create({
       data: {
         name,
         email,
         password: hashed,
-        urnId: "URN" + Math.floor(10000000 + Math.random() * 90000000),
-        role: role.toUpperCase(),
+        urnId,
+        role: normalizeRole(role),
       },
     });
 
-    res.json({ message: "Signup successful", user: newUser });
+    res.json({
+      message: "Signup successful",
+      user: {
+        id: newUser.id,
+        name: newUser.name,
+        email: newUser.email,
+        role: newUser.role,
+        urnId: newUser.urnId,
+      },
+    });
   } catch (err) {
     console.log("Signup Error:", err);
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: "Signup failed", error: err.message });
   }
 };
 

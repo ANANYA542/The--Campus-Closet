@@ -13,6 +13,7 @@ import BuyerDashboard from "./pages/BuyerDashboard";
 import ProductListings from "./pages/ProductListings";
 import ProductDetail from "./pages/ProductDetail";
 import NewArrivals from "./pages/NewArrivals";
+import ChatLayout from "./components/chat/ChatLayout.jsx";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
 
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/chat" element={<ChatLayout />} />
       </Routes>
     </div>
   );
