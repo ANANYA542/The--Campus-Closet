@@ -1,10 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  
-  // ------------------------------------
-  // STYLES OBJECT
-  // ------------------------------------
+  const navigate = useNavigate();
+
   const styles = {
     container:
       "bg-background-light dark:bg-background-dark font-body text-text-light dark:text-text-dark transition-colors duration-300",
@@ -56,9 +55,7 @@ export default function Home() {
     bsBtn: "inline-block mt-6 text-sm uppercase border-b border-white/50 pb-1",
   };
 
-  // ------------------------------------
-  // DATA
-  // ------------------------------------
+
   const categories = [
     "Books",
     "Electronics",
@@ -91,9 +88,7 @@ export default function Home() {
     },
   ];
 
-  // ------------------------------------
-  // JSX RETURN
-  // ------------------------------------
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -133,9 +128,8 @@ export default function Home() {
             {categories.map((cat, i) => (
               <a
                 key={cat}
-                className={`${styles.pillBase} ${
-                  i === 1 ? styles.pillActive : styles.pillInactive
-                }`}
+                className={`${styles.pillBase} ${i === 1 ? styles.pillActive : styles.pillInactive
+                  }`}
               >
                 {cat}
               </a>
@@ -177,7 +171,14 @@ export default function Home() {
                 <p className={styles.bsDesc}>
                   Discover unique items from fellow students. Your next great find is just around the corner.
                 </p>
-                <a className={styles.bsBtn}>Shop Now</a>
+                <a
+                  className={styles.bsBtn}
+                  onClick={() => navigate("./BuyerDashboard")}
+                  style={{ cursor: "pointer" }}
+                >
+                  Shop Now
+                </a>
+
               </div>
             </div>
 
@@ -191,7 +192,14 @@ export default function Home() {
                 <p className={styles.bsDesc}>
                   Turn your unused items into cash. It's simple, fast, and connects you with your campus community.
                 </p>
-                <a className={styles.bsBtn}>Start Selling</a>
+                <a
+                  className={styles.bsBtn}
+                  onClick={() => navigate("./SellerDashboard")}
+                  style={{ cursor: "pointer" }}
+                >
+                  Start Selling
+                </a>
+
               </div>
             </div>
 
