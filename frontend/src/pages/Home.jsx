@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -111,7 +111,7 @@ export default function Home() {
               </p>
 
               <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <a className={styles.heroBtnPrimary}>Start Browsing</a>
+                <Link to="/shop" className={styles.heroBtnPrimary}>Start Browsing</Link>
                 <a className={styles.heroBtnOutline}>Post an Item</a>
               </div>
             </div>
@@ -120,7 +120,7 @@ export default function Home() {
             <div className={styles.heroImgWrapper}>
               <img
                 className={styles.heroImg}
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuWxfgJ_qAKhmsFeSisQ_iW2O0pjIOQOH18UnTjb83k4LTg0hiBdsoRf3AJRIKOlgnzsgVbUfXZrioPseMmk53OokUpsYkWkh0vyEfGn1boL_N4VO_HhhrLpcF55lX2PU-orDCFvhdERSvgKLoy606zW2JDgFd57nlt17sqLyiODgZ83rTU_mhyvg39-NRhcnjn-dJsQdgwwQlPzHiDDlSkZ0T9oI4PtdVfw5DIfQd_qFOz5aTC59B8aS6Nl9H8e3mRz1jliS8O1k"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuWxfgJ_qAKhmsFeSisQ_iC2O0pjIOQOH18UnTjb83k4LTg0hiBdsoRf3AJRIKOlgnzsgVbUfXZrioPseMmk53OokUpsYkWkh0vyEfGn1boL_N4VO_HhhrLpcF55lX2PU-orDCFvhdERSvgKLoy606zW2JDgFd57nlt17sqLyiODgZ83rTU_mhyvg39-NRhcnjn-dJsQdgwwQlPzHiDDlSkZ0T9oI4PtdVfw5DIfQd_qFOz5aTC59B8aS6Nl9H8e3mRz1jliS8O1k"
                 alt="Hero"
               />
             </div>
