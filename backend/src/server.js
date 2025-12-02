@@ -6,6 +6,7 @@ import sellerRoutes from "./routes/seller.routes.js";
 import buyerRoutes from "./routes/buyer.routes.js";
 import interactionRoutes from "./routes/interaction.routes.js";
 import cartRoutes from "./routes/cart.routes.js";
+import productsRoutes from "./routes/products.routes.js";
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use("/api/seller", sellerRoutes);
 app.use("/api/buyer", buyerRoutes);
 app.use("/api/interaction", interactionRoutes);
 app.use("/api/cart", cartRoutes);
+app.use("/api/products", productsRoutes);
 
 app.get("/", (req, res) => res.send("🚀 Campus Closet Backend Running"));
 

@@ -12,6 +12,7 @@ import SellerDashboard from "./pages/SellerDashboard";
 import BuyerDashboard from "./pages/BuyerDashboard";
 import ProductListings from "./pages/ProductListings";
 import ProductDetail from "./pages/ProductDetail";
+import NewArrivals from "./pages/NewArrivals";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         {/* Buyer Routes */}
         <Route path="/buyer/dashboard" element={<BuyerDashboard />} />
         <Route path="/products" element={<ProductListings />} />
+        <Route path="/new-arrivals" element={<NewArrivals />} />
         <Route path="/products/:id" element={<ProductDetail />} />
         
         {/* Seller Routes */}
@@ -35,7 +37,6 @@ function App() {
         <Route path="/signup" element={<Signup />} />
 
 
-        {/* Password Reset */}
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>

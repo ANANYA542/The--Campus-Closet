@@ -132,18 +132,18 @@ const ProductDetail = () => {
     : ["https://via.placeholder.com/600x600?text=No+Image"];
 
   return (
-    <div className="min-h-screen bg-[#0a1628] text-white font-sans">
+    <div className="min-h-screen bg-[#0b0b0e] text-white font-sans overflow-y-auto">
       {/* Breadcrumb */}
-      <div className="bg-[#0f1f35] border-b border-white/5">
+      <div className="bg-[#121213] border-b border-white/5">
         <div className="max-w-7xl mx-auto px-8 py-4">
           <div className="flex items-center gap-2 text-sm text-gray-400">
-            <Link to="/" className="hover:text-blue-400 transition-colors">
+            <Link to="/" className="hover:text-purple-400 transition-colors">
               Home
             </Link>
             <ChevronRight size={14} />
             <Link
               to="/products"
-              className="hover:text-blue-400 transition-colors"
+              className="hover:text-purple-400 transition-colors"
             >
               Products
             </Link>
@@ -204,7 +204,7 @@ const ProductDetail = () => {
 
               {product.owner && (
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 p-[2px]">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-600 to-pink-600 p-[2px]">
                     <img
                       src={
                         product.owner.avatarUrl ||
@@ -216,7 +216,7 @@ const ProductDetail = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Sold by</p>
-                    <p className="font-semibold text-blue-400 hover:text-blue-300 cursor-pointer">
+                    <p className="font-semibold text-purple-400 hover:text-purple-300 cursor-pointer">
                       @{product.owner.name.replace(" ", "")}
                     </p>
                   </div>
@@ -224,23 +224,19 @@ const ProductDetail = () => {
               )}
 
               {/* Rating */}
-              <div className="flex items-center gap-4 mb-6 bg-[#1e3a5f]/30 p-4 rounded-xl border border-white/5 w-fit">
+              <div className="flex items-center gap-4 mb-6 bg-[#1d1d22] p-4 rounded-xl border border-white/10 w-fit">
                 <div className="flex gap-1">
                   {renderStars(product.averageRating || 0)}
                 </div>
                 <div className="h-4 w-px bg-white/20"></div>
-                <span className="text-blue-300 font-medium">
+                <span className="text-purple-300 font-medium">
                   {product.reviewCount || 0} Reviews
                 </span>
                 {product.condition && (
                   <>
                     <div className="h-4 w-px bg-white/20"></div>
                     <span
-                      className={`px-3 py-0.5 rounded-full text-sm font-medium ${
-                        product.condition === "New"
-                          ? "bg-green-500/20 text-green-400"
-                          : "bg-blue-500/20 text-blue-400"
-                      }`}
+                      className={`px-3 py-0.5 rounded-full text-sm font-medium bg-purple-600/20 text-purple-300`}
                     >
                       {product.condition}
                     </span>
@@ -248,24 +244,26 @@ const ProductDetail = () => {
                 )}
               </div>
 
-              {/* Price */}
-              <div className="mb-8 p-6 bg-[#1e3a5f]/20 rounded-2xl border border-white/5">
-                <div className="flex items-end gap-3 mb-2">
-                  <span className="text-5xl font-bold text-white">
-                    ₹{product.price.toLocaleString()}
-                  </span>
-                  <span className="text-gray-400 mb-2 font-medium">INR</span>
-                </div>
-
-                {product.isForRent && product.rentPrice && (
-                  <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
-                    <span className="text-gray-300">Available for Rent</span>
-                    <span className="text-xl font-bold text-blue-300">
-                      ₹{product.rentPrice}
-                      <span className="text-sm text-gray-400 font-normal">
-                        /month
-                      </span>
+              {/* Price Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                <div className="p-6 bg-[#1d1d22] rounded-2xl border border-white/10">
+                  <p className="text-sm text-gray-400 mb-1">Buy Now</p>
+                  <div className="flex items-end gap-2">
+                    <span className="text-5xl font-bold">
+                      ₹{product.price.toLocaleString()}
                     </span>
+                    <span className="text-gray-500 mb-1">INR</span>
+                  </div>
+                </div>
+                {product.isForRent && product.rentPrice && (
+                  <div className="p-6 bg-[#1d1d22] rounded-2xl border border-white/10">
+                    <p className="text-sm text-gray-400 mb-1">Or Rent</p>
+                    <div className="flex items-end gap-2">
+                      <span className="text-3xl font-bold text-purple-300">
+                        ₹{product.rentPrice}
+                      </span>
+                      <span className="text-sm text-gray-500 mb-1">/month</span>
+                    </div>
                   </div>
                 )}
               </div>
@@ -274,20 +272,20 @@ const ProductDetail = () => {
               <div className="flex items-center gap-4">
                 <button
                   onClick={handleBuyNow}
-                  className="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg shadow-blue-900/20 hover:shadow-blue-900/40 hover:-translate-y-0.5"
+                  className="flex-1 bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg shadow-purple-900/20 hover:shadow-purple-900/40 hover:-translate-y-0.5"
                 >
                   Buy Now
                 </button>
                 <button
                   onClick={handleAddToCart}
-                  className="flex-1 bg-white/10 hover:bg-white/20 text-blue-300 font-semibold py-4 px-6 rounded-xl border-2 border-blue-500/30 hover:border-blue-400 transition-all flex items-center justify-center gap-2"
+                  className="flex-1 bg-white/10 hover:bg-white/20 text-purple-300 font-semibold py-4 px-6 rounded-xl border-2 border-purple-500/30 hover:border-purple-400 transition-all flex items-center justify-center gap-2"
                 >
                   <ShoppingCart size={20} />
                   Add to Cart
                 </button>
                 <button
                   onClick={handleToggleWishlist}
-                  className="bg-[#1e3a5f] hover:bg-[#2a4a6f] text-white p-4 rounded-xl border border-white/10 transition-all hover:border-blue-400/50"
+                  className="bg-[#1d1d22] hover:bg-[#242429] text-white p-4 rounded-xl border border-white/10 transition-all hover:border-purple-400/50"
                 >
                   <Heart
                     size={24}
@@ -311,13 +309,13 @@ const ProductDetail = () => {
                   onClick={() => setActiveTab(tab)}
                   className={`pb-4 px-2 font-bold capitalize text-lg transition-all relative ${
                     activeTab === tab
-                      ? "text-blue-400"
+                      ? "text-purple-400"
                       : "text-gray-500 hover:text-gray-300"
                   }`}
                 >
                   {tab}
                   {activeTab === tab && (
-                    <div className="absolute bottom-0 left-0 w-full h-1 bg-blue-500 rounded-t-full shadow-[0_-2px_10px_rgba(59,130,246,0.5)]"></div>
+                    <div className="absolute bottom-0 left-0 w-full h-1 bg-purple-500 rounded-t-full shadow-[0_-2px_10px_rgba(168,85,247,0.5)]"></div>
                   )}
                 </button>
               ))}
@@ -445,7 +443,7 @@ const ProductDetail = () => {
               </h2>
               <Link
                 to="/products"
-                className="text-blue-400 hover:text-blue-300 font-medium flex items-center gap-1"
+                className="text-purple-400 hover:text-purple-300 font-medium flex items-center gap-1"
               >
                 View All <ChevronRight size={16} />
               </Link>

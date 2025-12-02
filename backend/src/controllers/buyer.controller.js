@@ -113,11 +113,40 @@ export const rentItem = async (req, res) => {
 // ---------------- BUYER ORDERS ----------------
 export const getBuyerOrders = async (req, res) => {
   try {
-    const buyerId = +req.params.buyerId;
-    const orders = await prisma.transaction.findMany({
-      where: { buyerId },
-      include: { item: true, seller: true },
-    });
+    // Hardcoded orders for demo
+    const orders = [
+      {
+        id: 1001,
+        amount: 1250,
+        status: "completed",
+        createdAt: new Date(Date.now() - 86400000 * 2), // 2 days ago
+        item: {
+          id: 1,
+          name: "Introduction to Algorithms, 4th Edition",
+          images: JSON.stringify(["https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=800"]),
+          price: 1250
+        },
+        seller: {
+          name: "Rahul Sharma"
+        }
+      },
+      {
+        id: 1002,
+        amount: 450,
+        status: "shipped",
+        createdAt: new Date(Date.now() - 86400000 * 5), // 5 days ago
+        item: {
+          id: 4,
+          name: "Dorm Room LED Strip Lights",
+          images: JSON.stringify(["https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800"]),
+          price: 450
+        },
+        seller: {
+          name: "Kavita Singh"
+        }
+      }
+    ];
+    
     res.json(orders);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch orders" });

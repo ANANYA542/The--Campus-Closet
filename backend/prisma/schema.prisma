@@ -30,8 +30,9 @@ model User {
   boughtItems      Transaction[]    @relation("BuyerTransactions")
   soldItems        Transaction[]    @relation("SellerTransactions")
   rentals          Rental[]         @relation("UserRentals")
-  cartItems      CartItem[]
+  cartItems        CartItem[]
   reviews          Review[]
+  wishlistItems    Wishlist[]
   sentMessages     ChatMessage[]    @relation("SentMessages")
   receivedMessages ChatMessage[]    @relation("ReceivedMessages")
   notifications    Notification[]
@@ -52,7 +53,7 @@ model Address {
 model Item {
   id             Int          @id @default(autoincrement())
   name           String
-  description    String
+  description    String       @db.Text
   category       String
   price          Float
   rentPrice      Float?
@@ -60,6 +61,8 @@ model Item {
   isForRent      Boolean      @default(false)
   status         String       @default("available") // available, sold, rented
   images         Json?
+  viewCount      Int          @default(0)
+  stockQuantity  Int          @default(1)
   createdAt      DateTime     @default(now())
 
   owner          User         @relation("UserItems", fields: [ownerId], references: [id])
@@ -68,6 +71,7 @@ model Item {
   rentals        Rental[]
   cartItems      CartItem[]
   reviews        Review[]
+  wishlistedBy   Wishlist[]
 }
 
 model Transaction {
@@ -140,4 +144,16 @@ model ChatMessage {
   receiverId    Int
   content       String
   createdAt     DateTime  @default(now())
+}
+
+model Wishlist {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  itemId    Int
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  item Item @relation(fields: [itemId], references: [id])
+
+  @@unique([userId, itemId])
 }

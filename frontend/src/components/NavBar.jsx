@@ -36,6 +36,9 @@ function NavBar() {
               <Link to="/products" className="btn btn--ghost">
                 Listings
               </Link>
+              <Link to="/new-arrivals" className="btn btn--ghost">
+                New Arrivals
+              </Link>
               <Link to="/buyer/dashboard" className="btn btn--ghost">
                 Dashboard
               </Link>
