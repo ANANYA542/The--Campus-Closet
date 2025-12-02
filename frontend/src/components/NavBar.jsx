@@ -33,6 +33,15 @@ function NavBar() {
 
           {isAuthenticated && (
             <>
+              <Link to="/products" className="btn btn--ghost">
+                Listings
+              </Link>
+              <Link to="/buyer/dashboard" className="btn btn--ghost">
+                Dashboard
+              </Link>
+              <Link to="/seller/dashboard" className="btn btn--ghost">
+                My Items
+              </Link>
               <Link to="/profile" className="btn btn--ghost">
                 {user?.name || "Profile"}
               </Link>

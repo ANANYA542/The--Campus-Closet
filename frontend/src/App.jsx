@@ -7,8 +7,11 @@ import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
-import Profile from './pages/Profile.jsx'
+import Profile from './pages/Profile.jsx';
 import SellerDashboard from "./pages/SellerDashboard";
+import BuyerDashboard from "./pages/BuyerDashboard";
+import ProductListings from "./pages/ProductListings";
+import ProductDetail from "./pages/ProductDetail";
 
 function App() {
   return (
@@ -18,6 +21,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
+        
+        {/* Buyer Routes */}
+        <Route path="/buyer/dashboard" element={<BuyerDashboard />} />
+        <Route path="/products" element={<ProductListings />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
+        
+        {/* Seller Routes */}
         <Route path="/seller/dashboard" element={<SellerDashboard />} />
 
         {/* Auth */}
