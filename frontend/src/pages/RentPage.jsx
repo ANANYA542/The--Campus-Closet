@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner";
+import API_BASE_URL from "../config/api";
 
 const RentPage = () => {
   const { itemId } = useParams();
@@ -13,7 +14,7 @@ const RentPage = () => {
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const res = await axios.get(`http://localhost:5050/api/products/${itemId}`);
+        const res = await axios.get(`${API_BASE_URL}/api/products/${itemId}`);
         setItem(res.data);
       } catch (error) {
         console.error("Error fetching item:", error);
@@ -45,7 +46,7 @@ const RentPage = () => {
       }
       const buyerId = 1;
       const amountOverride = item?.rentPrice || 0;
-      const orderRes = await axios.post("http://localhost:5050/api/payments/create-order", {
+      const orderRes = await axios.post(`${API_BASE_URL}/api/payments/create-order`, {
         buyerId,
         itemId: parseInt(itemId),
         amountOverride,

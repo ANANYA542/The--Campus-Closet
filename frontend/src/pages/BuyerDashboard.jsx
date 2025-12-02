@@ -10,9 +10,9 @@ import {
   ShoppingBag,
   ChevronRight,
 } from "lucide-react";
-import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import LoadingSpinner from "../components/LoadingSpinner";
+import API_BASE_URL from "../config/api";
 // ⭐ Import your pink cloud background image
 import PinkCloudBG from "../assets/pink-cloud-bg.png";
 // Banner images
@@ -48,7 +48,7 @@ const BuyerDashboard = () => {
       setLoading(true);
 
       const wishlistResponse = await axios.get(
-        `http://localhost:5050/api/products/wishlist/${user.id}`
+        `${API_BASE_URL}/api/products/wishlist/${user.id}`
       );
       setWishlist(wishlistResponse.data);
     } catch (error) {
@@ -60,12 +60,12 @@ const BuyerDashboard = () => {
 
   const fetchAllProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5050/api/buyer/items");
+      const res = await axios.get(`${API_BASE_URL}/api/buyer/items`);
       setAllProducts(res.data || []);
     } catch {
       try {
         const fallback = await axios.get(
-          "http://localhost:5050/api/products/new-arrivals"
+          `${API_BASE_URL}/api/products/new-arrivals`
         );
         setAllProducts(fallback.data || []);
       } catch (err2) {

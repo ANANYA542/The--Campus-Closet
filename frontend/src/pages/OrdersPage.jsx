@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Package, Truck, CheckCircle, Clock, ChevronRight } from "lucide-react";
 import LoadingSpinner from "../components/LoadingSpinner";
+import API_BASE_URL from "../config/api";
 
 const OrdersPage = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const OrdersPage = () => {
   const fetchOrders = async () => {
     try {
       const buyerId = 1; // Hardcoded for demo
-      const response = await axios.get(`http://localhost:5050/api/orders/buyer/${buyerId}`);
+      const response = await axios.get(`${API_BASE_URL}/api/orders/buyer/${buyerId}`);
       setOrders(response.data);
     } catch (error) {
       console.error("Error fetching orders:", error);

@@ -4,6 +4,7 @@ import { Star, Heart, ShoppingCart, ChevronRight, User } from "lucide-react";
 import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import LoadingSpinner from "../components/LoadingSpinner";
+import API_BASE_URL from "../config/api";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -25,7 +26,7 @@ const ProductDetail = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:5050/api/products/${id}`
+        `${API_BASE_URL}/api/products/${id}`
       );
       setProduct(response.data);
     } catch (error) {
@@ -38,7 +39,7 @@ const ProductDetail = () => {
   const fetchSimilarProducts = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5050/api/products/${id}/similar`
+        `${API_BASE_URL}/api/products/${id}/similar`
       );
       setSimilarProducts(response.data);
     } catch (error) {
@@ -50,7 +51,7 @@ const ProductDetail = () => {
     try {
       // Get userId from localStorage or context - using dummy ID for now
       const userId = 1;
-      await axios.post("http://localhost:5050/api/cart", {
+      await axios.post(`${API_BASE_URL}/api/cart`, {
         userId,
         itemId: product.id,
         quantity: 1,
@@ -69,7 +70,7 @@ const ProductDetail = () => {
   const handleToggleWishlist = async () => {
     try {
       const userId = 1;
-      await axios.post("http://localhost:5050/api/buyer/wishlist", {
+      await axios.post(`${API_BASE_URL}/api/buyer/wishlist`, {
         userId,
         itemId: product.id,
       });

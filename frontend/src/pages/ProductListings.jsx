@@ -3,6 +3,7 @@ import { Search } from "lucide-react";
 import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import LoadingSpinner from "../components/LoadingSpinner";
+import API_BASE_URL from "../config/api";
 
 const ProductListings = () => {
   const [products, setProducts] = useState([]);
@@ -28,14 +29,14 @@ const ProductListings = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:5050/api/buyer/items");
+      const response = await axios.get(`${API_BASE_URL}/api/buyer/items`);
       setProducts(response.data);
       setFilteredProducts(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
       try {
         const fallback = await axios.get(
-          "http://localhost:5050/api/products/new-arrivals"
+          `${API_BASE_URL}/api/products/new-arrivals`
         );
         setProducts(fallback.data);
         setFilteredProducts(fallback.data);
@@ -57,13 +58,13 @@ const ProductListings = () => {
       if (filterId === "all") {
         // Fetch new arrivals
         const response = await axios.get(
-          "http://localhost:5050/api/products/new-arrivals"
+          `${API_BASE_URL}/api/products/new-arrivals`
         );
         setFilteredProducts(response.data);
       } else {
         // Fetch by category
         const response = await axios.get(
-          `http://localhost:5050/api/products/category/${filterId}`
+          `${API_BASE_URL}/api/products/category/${filterId}`
         );
         setFilteredProducts(response.data);
       }
@@ -87,7 +88,7 @@ const ProductListings = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:5050/api/products/search?q=${query}`
+        `${API_BASE_URL}/api/products/search?q=${query}`
       );
       setFilteredProducts(response.data);
       setActiveFilter("");

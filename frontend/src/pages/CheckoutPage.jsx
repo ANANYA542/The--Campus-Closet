@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { CreditCard, Wallet, Truck } from "lucide-react";
 import LoadingSpinner from "../components/LoadingSpinner";
+import API_BASE_URL from "../config/api";
 
 const CheckoutPage = () => {
   const { itemId } = useParams();
@@ -26,7 +27,7 @@ const CheckoutPage = () => {
 
   const fetchItem = async () => {
     try {
-      const res = await axios.get(`http://localhost:5050/api/products/${itemId}`);
+      const res = await axios.get(`${API_BASE_URL}/api/products/${itemId}`);
       setItem(res.data);
     } catch (error) {
       console.error("Error fetching item:", error);
@@ -55,7 +56,7 @@ const CheckoutPage = () => {
 
     try {
       // Simulate API call
-      await axios.post("http://localhost:5050/api/orders/place", {
+      await axios.post(`${API_BASE_URL}/api/orders/place`, {
         buyerId: 1, // Hardcoded for demo
         itemId: parseInt(itemId),
         paymentMethod,

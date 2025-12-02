@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import ProductCard from "../components/ProductCard";
+import LoadingSpinner from "../components/LoadingSpinner";
+import API_BASE_URL from "../config/api";
 
 function CategoryPage() {
   const { slug } = useParams();
@@ -22,7 +25,7 @@ function CategoryPage() {
       try {
         setLoading(true);
         const res = await axios.get(
-          `http://localhost:5050/api/categories/${slug}/products`
+          `${API_BASE_URL}/api/categories/${slug}/products`
         );
         setItems(res.data || []);
       } catch (e) {

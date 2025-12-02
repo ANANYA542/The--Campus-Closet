@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 
 function NewArrivals() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ function NewArrivals() {
   const fetchNewArrivals = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5050/api/products/new-arrivals");
+      const res = await axios.get(`${API_BASE_URL}/api/products/new-arrivals`);
       setItems(res.data || []);
     } catch (e) {
       console.error("Failed to load new arrivals", e);
