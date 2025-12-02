@@ -62,19 +62,8 @@ const ProductDetail = () => {
     }
   };
 
-  const handleBuyNow = async () => {
-    try {
-      const buyerId = 1;
-      await axios.post("http://localhost:5050/api/buyer/buy", {
-        buyerId,
-        itemId: product.id,
-      });
-      alert("Purchase successful");
-      navigate("/buyer/dashboard");
-    } catch (error) {
-      console.error("Error buying item:", error);
-      alert("Failed to complete purchase");
-    }
+  const handleBuyNow = () => {
+    navigate(`/checkout/${product.id}`);
   };
 
   const handleToggleWishlist = async () => {

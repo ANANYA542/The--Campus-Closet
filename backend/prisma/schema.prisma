@@ -56,6 +56,7 @@ model Item {
   name           String
   description    String       @db.Text
   category       String
+  categoryId     Int?
   price          Float
   rentPrice      Float?
   condition      String
@@ -68,6 +69,7 @@ model Item {
 
   owner          User         @relation("UserItems", fields: [ownerId], references: [id])
   ownerId        Int
+  categoryRef    Category?    @relation(fields: [categoryId], references: [id])
   transactions   Transaction[]
   rentals        Rental[]
   cartItems      CartItem[]
