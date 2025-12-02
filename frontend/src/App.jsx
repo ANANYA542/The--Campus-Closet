@@ -8,6 +8,8 @@ import Signup from "./pages/Signup.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 import Profile from './pages/Profile.jsx';
+import Cart from './pages/Cart.jsx';
+import Shop from './pages/Shop.jsx';
 import SellerDashboard from "./pages/SellerDashboard";
 import BuyerDashboard from "./pages/BuyerDashboard";
 import ProductListings from "./pages/ProductListings";
@@ -21,14 +23,16 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/shop" element={<Shop />} />
         <Route path="/profile" element={<Profile />} />
-        
+        <Route path="/cart" element={<Cart />} />
+
         {/* Buyer Routes */}
         <Route path="/buyer/dashboard" element={<BuyerDashboard />} />
         <Route path="/products" element={<ProductListings />} />
         <Route path="/new-arrivals" element={<NewArrivals />} />
         <Route path="/products/:id" element={<ProductDetail />} />
-        
+
         {/* Seller Routes */}
         <Route path="/seller/dashboard" element={<SellerDashboard />} />
 
