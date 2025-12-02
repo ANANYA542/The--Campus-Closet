@@ -10,11 +10,11 @@ function Home() {
             Thrift clothing and campus essentials from students near you. Safe, simple, and sustainable.
           </p>
           <div className="hero__ctas">
-            <Link to="/signup" className="btn btn--primary btn--lg">
-              Get Started
+            <Link to="/shop" className="btn btn--primary btn--lg">
+              Browse Items
             </Link>
-            <Link to="/login" className="btn btn--ghost btn--lg">
-              Sign In
+            <Link to="/signup" className="btn btn--ghost btn--lg">
+              Get Started
             </Link>
           </div>
         </div>
@@ -29,7 +29,7 @@ function Home() {
               Only verified students can list or buy — keeping transactions safe and on campus.
             </p>
           </div>
-          
+
           <div className="feature">
             <div className="feature__icon">♻️</div>
             <h3 className="feature__title">Sustainable Thrifting</h3>
@@ -37,7 +37,7 @@ function Home() {
               Give clothes and goods a second life while saving money and reducing waste.
             </p>
           </div>
-          
+
           <div className="feature">
             <div className="feature__icon">⚡</div>
             <h3 className="feature__title">Fast & Simple</h3>

@@ -10,6 +10,7 @@ export const getAllItems = async (req, res) => {
     });
     res.json(items);
   } catch (error) {
+    console.error("Error in getAllItems:", error);
     res.status(500).json({ error: "Failed to fetch items" });
   }
 };

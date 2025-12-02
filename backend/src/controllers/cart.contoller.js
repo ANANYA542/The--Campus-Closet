@@ -4,16 +4,18 @@ import prisma from "../config/db.js";
 export const addToCart = async (req, res) => {
     try {
         const { userId, itemId, quantity = 1 } = req.body;
+        const uId = parseInt(userId);
+        const iId = parseInt(itemId);
 
         // Verify item exists and is available
-        const item = await prisma.item.findUnique({ where: { id: itemId } });
+        const item = await prisma.item.findUnique({ where: { id: iId } });
         if (!item || item.status !== "available") {
             return res.status(400).json({ error: "Item not available" });
         }
 
         // Check if cart entry already exists
         const existing = await prisma.cartItem.findFirst({
-            where: { userId, itemId },
+            where: { userId: uId, itemId: iId },
         });
 
         if (existing) {
@@ -26,7 +28,7 @@ export const addToCart = async (req, res) => {
         }
 
         const cartItem = await prisma.cartItem.create({
-            data: { userId, itemId, quantity },
+            data: { userId: uId, itemId: iId, quantity },
         });
         res.status(201).json(cartItem);
     } catch (error) {
@@ -66,8 +68,9 @@ export const getCart = async (req, res) => {
 export const checkoutCart = async (req, res) => {
     try {
         const { userId } = req.body;
+        const uId = parseInt(userId);
         const cartItems = await prisma.cartItem.findMany({
-            where: { userId },
+            where: { userId: uId },
             include: { item: true },
         });
 
