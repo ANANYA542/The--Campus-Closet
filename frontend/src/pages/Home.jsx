@@ -5,8 +5,8 @@ export default function Home() {
   const navigate = useNavigate();
 
   const styles = {
-    container:
-      "bg-background-light dark:bg-background-dark font-body text-text-light dark:text-text-dark transition-colors duration-300",
+    container: "bg-[#F6F1EB] dark:bg-background-dark font-body text-text-light dark:text-text-dark transition-colors duration-300",
+
     wrapper: "max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8",
 
     /* HERO */
@@ -15,20 +15,25 @@ export default function Home() {
     heroHeading:
       "font-display text-5xl md:text-7xl lg:text-8xl font-medium leading-tight",
     heroSub: "mt-6 text-lg text-subtle-light",
-    heroBtnPrimary:
-      "inline-block bg-primary text-white px-8 py-4 rounded-full text-center transition-transform hover:scale-105",
-    heroBtnOutline:
-      "inline-block bg-transparent text-primary border border-primary px-8 py-4 rounded-full text-center hover:bg-primary/10",
+    heroBtnPrimary: "inline-block bg-[#9B7E62] text-white px-8 py-4 rounded-full text-center transition-transform hover:scale-105",
+
+    heroBtnOutline: "inline-block bg-transparent text-[#9B7E62] border border-[#9B7E62] px-8 py-4 rounded-full text-center hover:bg-[#EDE4DC]",
+
     heroImgWrapper: "relative h-96 lg:h-[32rem]",
     heroImg: "absolute inset-0 w-full h-full object-cover rounded-xl opacity-80",
 
     /* CATEGORY PILLS */
     categorySection: "py-16 sm:py-24",
     categoryWrapper: "flex flex-wrap justify-center gap-3 sm:gap-4",
-    pillBase: "px-6 py-2.5 rounded-full text-sm font-medium border transition-all",
-    pillActive: "bg-primary text-white border-primary shadow-sm",
+    pillBase:
+      "px-6 py-2.5 rounded-full text-sm font-medium border transition-all",
+
+    pillActive:
+      "bg-[#9B7E62] text-white border-[#9B7E62] shadow-sm",
+
     pillInactive:
-      "bg-surface-light border-border-light text-subtle-light hover:bg-primary/10 hover:text-primary",
+      "bg-white border-[#9B7E62] text-[#9B7E62] hover:bg-[#EDE4DC]",
+
 
     /* NEW ARRIVALS */
     sectionTitle: "font-display text-4xl text-center font-medium",
