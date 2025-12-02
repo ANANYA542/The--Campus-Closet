@@ -72,23 +72,23 @@ export default function Home() {
 
   const newArrivals = [
     {
-      title: "Vintage Desk Lamp",
-      price: "$45.00",
+      title: "Vintage Cardigan Sweater",
+      price: "Rs. 400",
       img: "https://lh3.googleusercontent.com/aida-public/AB6AXuD1LgEpXyFeGZUe4f22KO4ZbOj6hebFmSHes8-_A93TP1e7Xh1OSq3IZUl9vFjARC77vppEml3ajvszwOjSBbKLtO6zMZm919tKpxHW5NhFu89x49_hxwylAeTbA3lzdmlUibhfaOK1PFF5Ds2BU2aiJex1oJm9Sm0KmtnrQ8RSlNM_JMpgstjLYhL1AESoU3s_ab2Skyx1zBM_WzFZddo5sRoWiyozVHq57EjGX38g010lXP3qlBwqLKTiDZFyDy2T-AxM5pOGCxU",
     },
     {
-      title: "Ergonomic Study Chair",
-      price: "$120.00",
+      title: "Sofa",
+      price: "Rs 600",
       img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDqChUxOcEyPsVWmzXPXyWiMTWKBKp5V1u0edWWdhIeqSa0Q9zacM7eN7YVxFgb9Dpt6_g_YTkKo6eIEvAkltvh-LK7Pkh-ObCU4Z2H78ajAwOUAoFoP2uKss1-3Qp7V_Mhg7zLpLdj5c6qjRUxvbjXuAIwrWHJVpC2daVXlPvtmNmiYcLcibzpbddhsodt_xYkYHWyBQwRN78m1_rwEcliGI1AEodSPgMRs_hBKWC24rvxO3Buwry25yZ9YrJv8WOvIbf-p73fZBg",
     },
     {
-      title: "Calculus Textbook",
-      price: "$75.00",
+      title: "Wooden utensil set",
+      price: "Rs.700",
       img: "https://lh3.googleusercontent.com/aida-public/AB6AXuATgs_dzHIAEJQXGlSD7mOXaSKROsXN1LjLuQdEpFNf8tFds0mLQafpgY2xs4UbLDth2bUSp-pcYv5azprWcEYhtJnAxI22TBVWnr8qyb19WSng1I1Ol4UfJ9hrZnTyb5thJTKZnJ4uJiQb3UJR77FIrzF0PCxUI0QkXi999Bys-IAaavwLWzZRxpaza-71-OwRakEDL-WK-B6oK0O9bVP6usRtNQvPftPhCGP7sAv-R9R2RV70zJ4mC_4RspdqYS-WHZxSS7qJFWw",
     },
     {
-      title: "Noise-Cancelling Headphones",
-      price: "$99.00",
+      title: "Basket",
+      price: "Rs. 200",
       img: "https://lh3.googleusercontent.com/aida-public/AB6AXuA95dDlkYHgtLLEbKFCEMxYSf91Pa0D1UsdzzifupE1H9T5IF5SfkKSk2KcT5DFNJrtXifvURbfq9bk8uC4K8A4ZS5pGIF3QkRu3yVvILdUzQRiBqBhmdn6Lr2zffDceDmQIBitXDxSztTBKLT2-Vk8gYKfmQbCWatsd79a7f2oBrpCc0RxVCiCqv8BEMayUYzwKuJ1G2x__LvodLOB4mwfFvhx4JVT_g9g2O7TNSq1Exr5BaOw0ye725s4cAZXjOrnQc0oFm3stn8",
     },
   ];
