@@ -162,7 +162,7 @@ export default function Home() {
                 </p>
                 <a
                   className={styles.bsBtn}
-                  onClick={() => navigate("./BuyerDashboard")}
+                  onClick={() => navigate("/buyer/dashboard")}
                   style={{ cursor: "pointer" }}
                 >
                   Shop Now
@@ -190,7 +190,7 @@ export default function Home() {
                 </p>
                 <a
                   className={styles.bsBtn}
-                  onClick={() => navigate("./SellerDashboard")}
+                  onClick={() => navigate("/seller/dashboard")}
                   style={{ cursor: "pointer" }}
                 >
                   Start Selling

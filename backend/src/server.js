@@ -10,6 +10,8 @@ import cartRoutes from "./routes/cart.routes.js";
 import productsRoutes from "./routes/products.routes.js";
 import chatRoutes from "./routes/chat.routes.js";
 import { initSocket } from "./socket/index.js";
+import categoriesRoutes from "./routes/categories.routes.js";
+import ordersRoutes from "./routes/orders.routes.js";
 
 dotenv.config();
 
@@ -18,6 +20,7 @@ const server = http.createServer(app);
 
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/seller", sellerRoutes);
@@ -26,8 +29,10 @@ app.use("/api/interaction", interactionRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/products", productsRoutes);
 app.use("/api", chatRoutes);
+app.use("/api/categories", categoriesRoutes);
+app.use("/api/orders", ordersRoutes);
 
-app.get("/", (req, res) => res.send("🚀 Campus Closet Backend Running"));
+app.get("/", (req, res) => res.send("Campus Closet Backend Running"));
 
 const io = initSocket(server);
 app.set("io", io);

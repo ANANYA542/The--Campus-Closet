@@ -1,7 +1,7 @@
 // HARDCODED DATA FOR DEMO PURPOSES
 // This controller temporarily replaces database calls with static data
 
-const SAMPLE_PRODUCTS = [
+export const SAMPLE_PRODUCTS = [
   {
     id: 1,
     name: "Introduction to Algorithms, 4th Edition",
