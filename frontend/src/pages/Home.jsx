@@ -100,8 +100,8 @@ export default function Home() {
               </p>
 
               <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link to="/shop" className={styles.heroBtnPrimary}>Start Browsing</Link>
-                <a className={styles.heroBtnOutline}>Post an Item</a>
+                <a className={styles.heroBtnPrimary} onClick={()=>navigate("/buyer/dashboard")} style={{ cursor: "pointer" }}>Start Browsing</a>
+                <a className={styles.heroBtnOutline} onClick={()=>navigate("/seller/dashboard")} style={{ cursor: "pointer" }}>Post an Item</a>
               </div>
             </div>
 
