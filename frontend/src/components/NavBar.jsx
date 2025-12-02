@@ -22,6 +22,9 @@ function NavBar() {
         <nav className="nav__actions">
           {!isAuthenticated && !isAuthPage && (
             <>
+              <Link to="/" className="btn btn--ghost">
+                Home
+              </Link>
               <Link to="/shop" className="btn btn--ghost">
                 Shop
               </Link>
@@ -36,6 +39,9 @@ function NavBar() {
 
           {isAuthenticated && (
             <>
+              <Link to="/" className="btn btn--ghost">
+                Home
+              </Link>
               <Link to="/shop" className="btn btn--ghost">
                 Shop
               </Link>
