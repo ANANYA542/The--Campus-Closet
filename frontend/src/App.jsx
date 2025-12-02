@@ -10,6 +10,11 @@ import ResetPassword from "./pages/ResetPassword.jsx";
 import Profile from './pages/Profile.jsx';
 import Cart from './pages/Cart.jsx';
 import Shop from './pages/Shop.jsx';
+import SellerDashboard from "./pages/SellerDashboard";
+import BuyerDashboard from "./pages/BuyerDashboard";
+import ProductListings from "./pages/ProductListings";
+import ProductDetail from "./pages/ProductDetail";
+import NewArrivals from "./pages/NewArrivals";
 
 function App() {
   return (
@@ -22,12 +27,20 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/cart" element={<Cart />} />
 
+        {/* Buyer Routes */}
+        <Route path="/buyer/dashboard" element={<BuyerDashboard />} />
+        <Route path="/products" element={<ProductListings />} />
+        <Route path="/new-arrivals" element={<NewArrivals />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
+
+        {/* Seller Routes */}
+        <Route path="/seller/dashboard" element={<SellerDashboard />} />
+
         {/* Auth */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
 
-        {/* Password Reset */}
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>

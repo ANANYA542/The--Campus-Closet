@@ -39,6 +39,18 @@ function NavBar() {
               <Link to="/shop" className="btn btn--ghost">
                 Shop
               </Link>
+              <Link to="/products" className="btn btn--ghost">
+                Listings
+              </Link>
+              <Link to="/new-arrivals" className="btn btn--ghost">
+                New Arrivals
+              </Link>
+              <Link to="/buyer/dashboard" className="btn btn--ghost">
+                Dashboard
+              </Link>
+              <Link to="/seller/dashboard" className="btn btn--ghost">
+                My Items
+              </Link>
 
               <Link to="/cart" className="btn btn--ghost nav__cart">
                 <svg
