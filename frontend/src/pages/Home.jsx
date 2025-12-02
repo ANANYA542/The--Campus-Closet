@@ -1,4 +1,5 @@
 import React from "react";
+import buyerVideo from "../assets/buyerSection.mp4";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Home() {
@@ -19,20 +20,8 @@ export default function Home() {
 
     heroBtnOutline: "inline-block bg-transparent text-[#9B7E62] border border-[#9B7E62] px-8 py-4 rounded-full text-center hover:bg-[#EDE4DC]",
 
-    heroImgWrapper: "relative h-96 lg:h-[32rem]",
-    heroImg: "absolute inset-0 w-full h-full object-cover rounded-xl opacity-80",
-
-    /* CATEGORY PILLS */
-    categorySection: "py-16 sm:py-24",
-    categoryWrapper: "flex flex-wrap justify-center gap-3 sm:gap-4",
-    pillBase:
-      "px-6 py-2.5 rounded-full text-sm font-medium border transition-all",
-
-    pillActive:
-      "bg-[#9B7E62] text-white border-[#9B7E62] shadow-sm",
-
-    pillInactive:
-      "bg-white border-[#9B7E62] text-[#9B7E62] hover:bg-[#EDE4DC]",
+    heroImgWrapper: "relative h-96 lg:h-[38rem] overflow-hidden",
+    heroVideo: "absolute inset-0 w-full h-full object-cover object-[center_-390px] rounded-xl opacity-80",
 
 
     /* NEW ARRIVALS */
@@ -111,34 +100,22 @@ export default function Home() {
               </p>
 
               <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link to="/shop" className={styles.heroBtnPrimary}>Start Browsing</Link>
-                <a className={styles.heroBtnOutline}>Post an Item</a>
+                <a className={styles.heroBtnPrimary} onClick={()=>navigate("/buyer/dashboard")} style={{ cursor: "pointer" }}>Start Browsing</a>
+                <a className={styles.heroBtnOutline} onClick={()=>navigate("/seller/dashboard")} style={{ cursor: "pointer" }}>Post an Item</a>
               </div>
             </div>
 
-            {/* RIGHT IMAGE */}
+            {/* RIGHT MEDIA */}
             <div className={styles.heroImgWrapper}>
-              <img
-                className={styles.heroImg}
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuWxfgJ_qAKhmsFeSisQ_iC2O0pjIOQOH18UnTjb83k4LTg0hiBdsoRf3AJRIKOlgnzsgVbUfXZrioPseMmk53OokUpsYkWkh0vyEfGn1boL_N4VO_HhhrLpcF55lX2PU-orDCFvhdERSvgKLoy606zW2JDgFd57nlt17sqLyiODgZ83rTU_mhyvg39-NRhcnjn-dJsQdgwwQlPzHiDDlSkZ0T9oI4PtdVfw5DIfQd_qFOz5aTC59B8aS6Nl9H8e3mRz1jliS8O1k"
-                alt="Hero"
+              <video
+                className={styles.heroVideo}
+                src={buyerVideo}
+                autoPlay
+                muted
+                loop
+                playsInline
               />
             </div>
-          </div>
-        </section>
-
-        {/* CATEGORY PILLS */}
-        <section className={styles.categorySection}>
-          <div className={styles.categoryWrapper}>
-            {categories.map((cat, i) => (
-              <a
-                key={cat}
-                className={`${styles.pillBase} ${i === 1 ? styles.pillActive : styles.pillInactive
-                  }`}
-              >
-                {cat}
-              </a>
-            ))}
           </div>
         </section>
 
@@ -166,9 +143,16 @@ export default function Home() {
         <section className={styles.bsSection}>
           <div className={styles.bsGrid}>
 
-            {/* BUYERS CARD */}
-            <div className={styles.bsCard}>
-              <img className={styles.bsImg} src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFIwPLjqIxiPc-Z05-G8Oymk2n4WPJvm4142AazrMK-sNc7MTvI4wIvYv8CluZ1kx99dwXN--5NnqzF8puNt3gfBUqK77NDPWZCaCOlgfvXi3YkktUN72SvukmQSXIJzC7Elobz1J-Bw7DjbUWv1DIiPXPWaDnOzvD6w7Qe-6otG47ciizEqAO8RCp7n8xEkNhfbAKc5NBfD7_U7DjqfxptZOflc9lBiuzu3NuEXLs28XClVY9DLOpVo6RuBwYhOQhLt02K5QMMzI" />
+          {/* BUYERS CARD */}
+          <div className={styles.bsCard}>
+            <img
+              className={styles.bsImg}
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFIwPLjqIxiPc-Z05-G8Oymk2n4WPJvm4142AazrMK-sNc7MTvI4wIvYv8CluZ1kx99dwXN--5NnqzF8puNt3gfBUqK77NDPWZCaCOlgfvXi3YkktUN72SvukmQSXIJzC7Elobz1J-Bw7DjbUWv1DIiPXPWaDnOzvD6w7Qe-6otG47ciizEqAO8RCp7n8xEkNhfbAKc5NBfD7_U7DjqfxptZOflc9lBiuzu3NuEXLs28XClVY9DLOpVo6RuBwYhOQhLt02K5QMMzI"
+              onError={(e) => {
+                e.currentTarget.src =
+                  "https://images.unsplash.com/photo-1615874959474-dff860fdf5d1?q=80&w=1600&auto=format&fit=crop";
+              }}
+            />
               <div className={styles.bsOverlay}></div>
 
               <div className={styles.bsText}>
@@ -187,9 +171,16 @@ export default function Home() {
               </div>
             </div>
 
-            {/* SELLERS CARD */}
-            <div className={styles.bsCard}>
-              <img className={styles.bsImg} src="https://lh3.googleusercontent.com/aida-public/AB6AXuChQyh9NslMdWEogUSdW6w_3xM_nnM4nIHA0446W_XFyB_9prTVU8fUXqv1wJHFHhNPyuIZ8oh6jW8ZfsuKd5uJ1ddwtgObTvmsyfxRIubwymIccR3_P4P0QzcKnLHuWS3n-twTAdZrm2X5MKBINGZrzbxtfscf0lNNN5n6vwD0UbNBKZCCO0XLJth1SQb9E3SqeRU0nQv5bD5sezrLkiiPnWl8lvIXcJKqX3YrOkon-VIw4kAD4pIFEvzn0vVhkG0aKPp5vy4fc3o" />
+          {/* SELLERS CARD */}
+          <div className={styles.bsCard}>
+            <img
+              className={styles.bsImg}
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuChQyh9NslMdWEogUSdW6w_3xM_nnM4nIHA0446W_XFyB_9prTVU8fUXqv1wJHFHhNPyuIZ8oh6jW8ZfsuKd5uJ1ddwtgObTvmsyfxRIubwymIccR3_P4P0QzcKnLHuWS3n-twTAdZrm2X5MKBINGZrzbxtfscf0lNNN5n6vwD0UbNBKZCCO0XLJth1SQb9E3SqeRU0nQv5bD5sezrLkiiPnWl8lvIXcJKqX3YrOkon-VIw4kAD4pIFEvzn0vVhkG0aKPp5vy4fc3o"
+              onError={(e) => {
+                e.currentTarget.src =
+                  "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1600&auto=format&fit=crop";
+              }}
+            />
               <div className={styles.bsOverlay}></div>
 
               <div className={styles.bsText}>
@@ -215,3 +206,5 @@ export default function Home() {
     </div>
   );
 }
+
+
